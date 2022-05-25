@@ -1,1 +1,48 @@
-App Builder Trial Form
+Using App builder to build App Builder Trial Form
+Adobe Developer App Builder enables developers to build custom applications that extend and integrate with Adobe Experience Manager and other Adobe solutions.
+One big advantage of app builder is that user could leverage app builder to bootstrap an app in minutes. In this article, we’ll look at how we successfully used App Builder
+to create the app builder trial form using the default App builder template, it brings a simple and easy way for any type of developers to get up quickly without sophisticated
+knowledge of frontend framework and also in next blog, we will show how a specialised frontend developer could bring their magic to extensively using a modern frontend 
+framework like Next.js in app builder without changing any of the serverless actions. Both ways are exciting! Let's start the journey
+
+
+App builder offer the trial program for first time user, so the idea is to have the app builder trial form for user to signup, how excited to use our product to builder our own trial from! 
+The objective of the project is to provisioning process through sign up form and Adobe developer preview program, make user signup process simply by only click 
+few buttons, and the form will collect customer and org information (id, name) from IMS org, and the sign up information will be stored in sharepoint storage in defined data format. 
+[Architecture diagram here] As we will leverage the default app builder template, the UI was implemented using CSS and HTML, and the backend is using serverless 
+runtime action to implement the backend logic to extend Adobe solutions. 
+
+The project structure could break into four function modules:
+- App builder Trial Form function code: This is the main function code git repo, the UI, backend connect to CustomDB is implemented here in this github repo, this code will be deployed on the project runtime namespace which holds the function module
+- App builder Trial parent frame: This is the site template built with the Adobe I/O theme, in the index.md pointing to the runtime action deployed from App builder Trial Form 
+- Adobe I/O theme: This is adobe I/O theme for building markdown/gdcos powered sites, themes allow site functionality to be packaged as a standalone product for others to easily resue, using a theme, all of your default configurations lives in an npm package
+- Backend database: In this project we will use Microsoft sharedpoint as our storage CustomDB
+
+Within the structure embeded in mind now let's start build it:
+
+First, we will bootstrap the app builder with `aio app init`, the `actions` directory containing the serverless actions, and the `web-src` containing the UI code.
+and we will use `app.config.yml` to define config file, in the `web-src` it contains the default UI code which is the css, javascript and static html, we will modify
+code from there to implement our frontend page according to the XD design. [TODO: Insert some of the code sample here] in our next blog, you could also replace 
+this folder with your own frontend code like Next.js 
+
+
+Second, take a deep look of the `actions` directory which holding our backend logic code. The default actions folder contains two files, `index.js` and `utils.js`
+you can extend the `index.js` to different function modules based on your business logic need, just give an example to explain how to use `action` folder template, in our project, we need to call the IMS org
+API endpoint and get the user information to autofill the form and at the same time, check whether the user is qualify for sign up for trial program, so 
+we will have two fuction module name `get-ims-orgs` and `get-org-feature`, same way, we will have a function model to handle the connect to customer DB logic as well. 
+and these javascript code will implement the logic and we will deploy these actions
+as runtime serverless action by `aio app run` command.[TODO: Insert some of the code sample here]
+
+After that, we will integrate the frontend UI with our app builder runtime action, we will use `.env` file to hold the credentials for sharepoint and runtime namespace, etc.
+usually we will developing and test the app locally and deploy on staging environment and then production by `aio app deploy`. The app builder will deploy
+your actions to serverless runtime action and provide you a link with your runtime namespace in the output of the command which is holding your running app! 
+How exciting it is, in our project, it is the app builder trial form part. In our case, since we are running our trial form under our adobe developer website 
+parent frame, what we just need to do is to put our app builder link into the `index.md`, we will have this function added to the parent framework smoothly and seamlessly. 
+With the same logic, you could extend the parent website with your new app builder function website easily without modify the parent frame. This is showcase how easy to extend using app builder
+
+
+In summary, using app builder, it's quickly to build a end to end production app from zero without the full technology stack knowledge.The ease-of-use nature of the platform, 
+which uses Node.js as the primary language, enables both front and back-end developers to quickly build, deploy, and test API services. Paired with a CI/CD pipeline, deployments are really easy.
+To learn more, check out our App builder resources on Adobe.com.
+
+
